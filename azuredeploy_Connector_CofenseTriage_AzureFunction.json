@@ -29,89 +29,115 @@
                 "description": "Enter Base URL for example https://your-cofense-instance-name.phishmecloud.com/."
             }
         },
-        "Cofense_Client_Id":{
+        "Cofense_Client_Id": {
             "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Cofense Client Id for authentication of cofense."
             }
         },
-	    "Cofense_Client_Secret":{
+        "Cofense_Client_Secret": {
             "type": "securestring",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Cofense Client Secret for authentication of cofense."
             }
         },
-	    "Azure_Client_Id":{
+        "Azure_Client_Id": {
             "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Client Id that you have created during app registration."
             }
         },
-	    "Azure_Client_Secret":{
+        "Azure_Client_Secret": {
             "type": "securestring",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Client Secret that you have created during creating the client secret."
             }
         },
-	    "Azure_Tenant_Id":{
+        "Azure_Tenant_Id": {
             "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Tenant Id of your Azure Active Directory."
             }
         },
-	    "Azure_Resource_Group_Name":{
+        "Azure_Resource_Group_Name": {
             "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Resource Group Name in which you want deploy the data connector."
             }
         },
-	    "Azure_Workspace_Name":{
+        "Azure_Workspace_Name": {
             "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Microsoft Sentinel Workspace Name of log analytics Workspace."
             }
         },
-	    "Azure_Subscription_Id":{
+        "Azure_Subscription_Id": {
             "type": "string",
             "minLength": 1,
             "metadata": {
                 "description": "Enter Azure Subscription Id which is present in the subscription tab in Microsoft Sentinel."
             }
         },
-	    "Proxy_Username":{
+        "Threat_Level": {
+            "type": "string",
+            "metadata": {
+                "description": "Select threat level filter for sending indicators to MS Defender. Default level is Benign."
+            },
+            "allowedValues": [
+                "Benign",
+                "Suspicious",
+                "Malicious"
+            ],
+            "defaultValue": "Benign"
+        },
+        "Proxy_Username": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "This is an optional parameter if required enter the proxy username."
             }
         },
-	    "Proxy_Password":{
+        "Proxy_Password": {
             "type": "securestring",
             "defaultValue": "",
             "metadata": {
                 "description": "This is an optional parameter if required enter the proxy password."
             }
         },
-	    "Proxy_URL":{
+        "Proxy_URL": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "This is an optional parameter if required enter the proxy url."
             }
         },
-        "Proxy_Port":{
+        "Proxy_Port": {
             "type": "string",
             "defaultValue": "",
             "metadata": {
                 "description": "This is an optional parameter if required enter the proxy port."
             }
+        },
+        "Throttle_Limit_For_Non_Cofense_Indicators": {
+            "type": "string",
+            "metadata": {
+                "description": "Throttle limit is used to restrict the number of Non-Cofense based indicators creation from Sentinel to Cofense Triage. By Default it's 'None'."
+            },
+            "allowedValues": [
+                "25",
+                "50",
+                "75",
+                "100",
+                "None"
+            ],
+            "defaultValue": "None"
         },
         "LogLevel": {
             "type": "string",
@@ -119,18 +145,18 @@
                 "description": "Debug, Info, Error, Warning"
             },
             "allowedValues": [
-            "Debug",
-            "Info",
-            "Error",
-            "Warning"
+                "Debug",
+                "Info",
+                "Error",
+                "Warning"
             ],
             "defaultValue": "Info"
         },
-	    "Reports_Table_name":{
+        "Reports_Table_name": {
             "type": "string",
             "defaultValue": "Report_links_data"
         },
-        "Schedule":{
+        "Schedule": {
             "type": "string",
             "minLength": 11,
             "metadata": {
@@ -140,8 +166,8 @@
     },
     "variables": {
         "FunctionName": "[concat(toLower(parameters('FunctionName')), uniqueString(resourceGroup().id))]",
-         "StorageSuffix": "[environment().suffixes.storage]",
-         "LogAnaltyicsUri": "[replace(environment().portal, 'https://portal', concat('https://', toLower(parameters('WorkspaceID')), '.ods.opinsights'))]"
+        "StorageSuffix": "[environment().suffixes.storage]",
+        "LogAnaltyicsUri": "[replace(environment().portal, 'https://portal', concat('https://', toLower(parameters('WorkspaceID')), '.ods.opinsights'))]"
     },
     "resources": [
         {
@@ -274,14 +300,16 @@
                         "Azure_Resource_Group_Name": "[parameters('Azure_Resource_Group_Name')]",
                         "Azure_Workspace_Name": "[parameters('Azure_Workspace_Name')]",
                         "Azure_Subscription_Id": "[parameters('Azure_Subscription_Id')]",
+                        "Threat_Level": "[parameters('Threat_Level')]",
                         "Proxy_Username": "[parameters('Proxy_Username')]",
                         "Proxy_Password": "[parameters('Proxy_Password')]",
                         "Proxy_URL": "[parameters('Proxy_URL')]",
                         "Proxy_Port": "[parameters('Proxy_Port')]",
+                        "Throttle_Limit_For_Non_Cofense_Indicators": "[parameters('Throttle_Limit_For_Non_Cofense_Indicators')]",
                         "Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
-			            "LogLevel": "[parameters('LogLevel')]",
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/lakshyamatai-crest/cofense-sentinel-integation/blob/main/CofenseDataConnector-D-1.0.0-5.zip?raw=true"
+                        "LogLevel": "[parameters('LogLevel')]",
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/lakshyamatai-crest/cofense-sentinel-integation/blob/main/CofenseDataConnector-D-1.0.0-6.zip?raw=true"
                     }
                 }
             ]
