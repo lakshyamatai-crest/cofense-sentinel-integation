@@ -309,7 +309,7 @@
                         "Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
                         "LogLevel": "[parameters('LogLevel')]",
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/lakshyamatai-crest/cofense-sentinel-integation/blob/main/CofenseTriageDataConnector-D-1.0.0-11.zip?raw=true"
+                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/lakshyamatai-crest/cofense-sentinel-integation/blob/main/CofenseTriageDataConnector-S1-1.0.0-12.zip?raw=true"
                     }
                 }
             ]
