@@ -309,11 +309,7 @@
                         "Reports_Table_name": "[parameters('Reports_Table_name')]",
                         "Schedule": "[parameters('Schedule')]",
                         "LogLevel": "[parameters('LogLevel')]",
-<<<<<<< HEAD:azuredeploy_CofenseTriage_API_AzureFunction.json
-                        "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/lakshyamatai-crest/cofense-sentinel-integation/blob/main/CofenseTriageDataConnector-D-1.0.0-11.zip?raw=true"
-=======
                         "WEBSITE_RUN_FROM_PACKAGE": "https://github.com/rushitajudiya-crest/cofense-triage/blob/main/Cofense.zip?raw=true"
->>>>>>> 2c581dadbf4ccc76df138f4dd46a3cc39f8558f8:azuredeploy_Connector_CofenseTriage_AzureFunction.json
                     }
                 }
             ]
